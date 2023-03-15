@@ -1,0 +1,14 @@
+{
+  "name": "musicapi",
+  "version": "1.0.0",
+  "description": "Un api de musica para la comision 25i",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Axel Angelucci",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.18.2"
+  }
+}
