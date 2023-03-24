@@ -10,6 +10,9 @@ const MusicModel = new mongoose.Schema({
     },
     author: {
         type: String
+    },
+    file: {
+        type: String
     }
 });
 
