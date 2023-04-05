@@ -7,6 +7,7 @@ const { postNewTrack,
     getTrackById,
     updateTrackById,
     deleteTrackById } = require('../controllers/music.controller');
+const {authMiddleware, checkAdminMiddleware} = require('../middlewares/jwt.middleware');
 const musicRoutes = express.Router();
 
 const storage = multer.diskStorage({
@@ -30,10 +31,10 @@ musicRoutes.post('/storage', updateFile.single("filename"), (req, res) => {
     res.json({ message: "Imagen cargada" })
 })
 
-musicRoutes.get('/music', getAllTracks);
-musicRoutes.get('/music/:id', getTrackById);
+musicRoutes.get('/music', authMiddleware, getAllTracks);
+musicRoutes.get('/music/:id', authMiddleware, getTrackById);
 
-musicRoutes.post('/music', postNewTrack);
+musicRoutes.post('/music', checkAdminMiddleware, postNewTrack);
 
 musicRoutes.put('/music', updateTrack);
 musicRoutes.put('/music/:id', updateTrackById);
