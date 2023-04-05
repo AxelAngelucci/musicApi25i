@@ -1,6 +1,7 @@
 const { response } = require("express");
 const userModel = require("../models/user.model");
 const bcrypt = require('bcryptjs');
+const { tokenSign } = require("../utilis/generateJWT");
 
 const encriptar = (password) => {
     const salt = bcrypt.genSaltSync(10);
@@ -35,7 +36,11 @@ const loginUserController = async (req, res) => {
         if (!match) {
             return res.status(404).json({ message: "email o contraseña incorrectos", match: match });
         } else {
-            return res.status(200).json({ message: "Iniciaste sesion!!!!!" })
+            const data = {
+                token: await tokenSign(user),
+                user: user
+            }
+            return res.status(200).json({ message: "Iniciaste sesion!!!!!", data: data});
         }
     } catch (error) {
         return res.status(500).json({ message: "Error del servidor" });
